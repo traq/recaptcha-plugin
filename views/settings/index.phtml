@@ -1,0 +1,23 @@
+<div class="traq_settings title content">
+    <h2 id="page_title"><?php echo l('settings'); ?></h2>
+</div>
+<?php echo View::render('admin/settings/_nav'); ?>
+<div class="traq_settings content">
+    <form action="<?php echo Request::requestUri(); ?>" method="post">
+        <fieldset class="tabular section box">
+            <legend><?php echo l('recaptcha_keys'); ?></legend>
+            <div class="group">
+                <label><?php echo l('site_key'); ?></label>
+                <?php echo Form::text('recaptcha_site_key', array('value' => settings('recaptcha_site_key'))); ?>
+            </div>
+            <div class="group">
+                <label><?php echo l('secret_key'); ?></label>
+                <?php echo Form::text('recaptcha_secret_key', array('value' => settings('recaptcha_secret_key'))); ?>
+            </div>
+        </fieldset>
+
+        <div class="actions">
+            <input type="submit" value="<?php echo l('save'); ?>" />
+        </div>
+    </form>
+</div>

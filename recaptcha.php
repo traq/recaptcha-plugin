@@ -23,6 +23,15 @@
 
 namespace traq\plugins;
 
+use \FishHook;
+use \HTML;
+use avalon\Autoloader;
+use avalon\Database;
+use avalon\http\Router;
+use avalon\http\Request;
+use avalon\output\View;
+use traq\models\Setting;
+
 /**
  * reCAPTCHA plugin for Traq 3.x
  *
@@ -46,9 +55,17 @@ class Recaptcha extends \traq\libraries\Plugin
      */
     public static function init()
     {
+        // Register namespace
+        Autoloader::registerNamespace('reCAPTCHA', __DIR__);
+
         // Register register page hooks
         FishHook::add('template:users/register', array(get_called_class(), 'registerField'));
 
+        // Register routes
+        Router::add('/admin/settings/recaptcha', 'reCAPTCHA::controllers::Settings.index');
+
+        // Register navbar tab
+        FishHook::add('template:admin/settings/_nav', array(get_called_class(), 'adminNav'));
     }
 
     /**
