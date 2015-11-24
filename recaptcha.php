@@ -1,7 +1,10 @@
 <?php
 /*!
  * Traq
- * Copyright (C) 2009-2015 Traq.io
+ * Copyright (C) 2009-2015 Jack P.
+ * Copyright (C) 2012-2015 Traq.io
+ * https://github.com/nirix
+ * http://traq.io
  *
  * This file is part of Traq.
  *
@@ -25,7 +28,7 @@ namespace traq\plugins;
  *
  * @author Jack P.
  * @version 1.0
- * @package traq\plugins\Recaptcha
+ * @package traq\plugins
  */
 class Recaptcha extends \traq\libraries\Plugin
 {
@@ -49,11 +52,13 @@ class Recaptcha extends \traq\libraries\Plugin
     }
 
     /**
-     * Script include for page header.
+     * Adds the link to the settings navbar.
      */
-    public static function scriptInc()
+    public static function adminNav()
     {
-        return "<script src='https://www.google.com/recaptcha/api.js'></script>";
+        echo '<li', iif(active_nav('/admin/settings/recaptcha'), ' class="active"'), '>',
+                HTML::link(l('recaptcha'), "/admin/settings/recaptcha"),
+             '</li>';
     }
 
     /**
@@ -79,11 +84,11 @@ class Recaptcha extends \traq\libraries\Plugin
     public static function __install()
     {
         Database::connection()
-            ->insert(array('setting' => 'recaptcha_site_key', 'value'   => ''))
+            ->insert(array('setting' => 'recaptcha_site_key', 'value' => ''))
             ->into('settings')->exec();
 
         Database::connection()
-            ->insert(array('setting' => 'recaptcha_secret_key', 'value'   => ''))
+            ->insert(array('setting' => 'recaptcha_secret_key', 'value' => ''))
             ->into('settings')->exec();
     }
 
