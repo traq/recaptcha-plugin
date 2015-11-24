@@ -43,6 +43,8 @@ class Recaptcha extends \traq\libraries\Plugin
      */
     public static function init()
     {
+        // Register register page hooks
+        FishHook::add('template:users/register', array(get_called_class(), 'registerField'));
 
     }
 
@@ -59,7 +61,7 @@ class Recaptcha extends \traq\libraries\Plugin
      */
     public static function registerField()
     {
-        return "<div class=\"g-recaptcha\" data-sitekey=\"{$site_key}\"></div>";
+        echo View::render('users/_recaptcha_field');
     }
 
     /**
